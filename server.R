@@ -16,7 +16,7 @@ shinyServer(function(input, output) {
     output$instructions = renderUI({
         if(!is.null(input$hide)){
             if(input$hide %% 2 == 0){
-            helpText(h4(p("About the task:")), p("In the Bucket Task, pigeons are shown two possible paths on a touchscreen, like ", a("this.", href = 'https://raw.githubusercontent.com/victor-navarro/bucketapp/bucket.webm')), 
+            helpText(h4(p("About the task:")), p("In the Bucket Task, pigeons are shown two possible paths on a touchscreen, like ", a("this.", href = 'https://raw.githubusercontent.com/victor-navarro/bucketapp/master/bucket.webm', target="_blank")), 
                     p("They choose one of the paths by pecking a colored square, and after it, they had to peck the image of a bucket. Each peck made the bucket move one step towards the end of the path. 
                        Once the bucket reached the end of the path, one last peck produced food. The birds received multiple trials a day, in which the position of the buckets changed."),
                     p("We manipulated, in a between-subjects design, the relationship between the position of the bucket and the amount of pecks required to move the bucket to the endzone. In the 'Closest' condition,
