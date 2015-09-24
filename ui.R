@@ -15,7 +15,7 @@ shinyUI(fluidPage(
                 wellPanel(
                     h4('Main options'),
                     radioButtons("mode", label = "Mode", choices = c("Group comparison", "Group", "Individual")),
-                    radioButtons("phase", "Phase", choices = c("Training 1", "Equal Work", "Training 2")),
+                    radioButtons("phase", "Phase", choices = c("Training 1", "Equal Work", "Training 2", "Reverse")),
                     radioButtons("moment", label = "Moment", choices = c("All sessions", "Individual sessions", "Blocks of sessions"))
                     )
                ),
