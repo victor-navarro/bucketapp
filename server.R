@@ -10,7 +10,8 @@ intro_text = list(h4(p("About the task:")), p("In the Bucket Task, pigeons are s
                        Once the bucket reached the end of the path, one last peck produced food. The birds received multiple trials a day, in which the position of the buckets changed."),
               p("We manipulated, in a between-subjects design, the relationship between the position of the bucket and the amount of pecks required to move the bucket to the endzone. In the 'Closest' condition,
                                   the bucket that is the closest to the endzone requires less pecks, and the birds can reduce the response-cost by choosing it (it takes less effort!). In the 'Farthest' condition such
-                                  relationship is inversed, such as it is now the farthest bucket the one that is optimal."),
+                                  relationship is inversed, such as it is now the farthest bucket the one that is optimal. Check a video of the Closest condition ", 
+                a("here", href = 'https://raw.githubusercontent.com/victor-navarro/bucketapp/master/closest.webm', target="_blank"), ", and one of the Farthest condition over here"), 
               p("We trained the birds on those tasks for 15 days. After that, in order to explore what was driving the birds' behavior, we equalized the amount of work required across the buckets. In this
                                   'Equal work' phase, the number of pecks to move any of the buckets to the end goal was the same, regardless of their position. This phase disrupted their responding, making them lapse into 
                                   a position preference."),
