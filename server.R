@@ -16,8 +16,8 @@ intro_text = list(h4(p("About the task:")), p("In the Bucket Task, pigeons are s
               p("We manipulated, in a between-subjects design, the relationship between the position of the bucket and the amount of pecks required to move the bucket to the endzone. In the 'Standard' condition,
                                   the bucket that is the closest to the endzone requires less pecks, and the birds can reduce the response-cost by choosing it (it takes less effort!). In the 'Reverse' condition such
                                   relationship is inversed, such as it is now the farthest bucket the one that is optimal."), 
-              p("You can see a video of the Standard group", a("here.", href = 'https://raw.githubusercontent.com/victor-navarro/bucketapp/master/bucket.webm', target="_blank"), 
-                "Also, you can see a video of the Reverse group", a("here.", href = 'https://raw.githubusercontent.com/victor-navarro/bucketapp/master/bucket.webm', target="_blank")),
+              p("You can see a video of the Standard group", a("here.", href = 'https://raw.githubusercontent.com/victor-navarro/bucketapp/master/standard.webm', target="_blank"), 
+                "Also, you can see a video of the Reverse group", a("here.", href = 'https://raw.githubusercontent.com/victor-navarro/bucketapp/master/reversed.webm', target="_blank")),
               p("We trained the birds on those tasks for 15 days. After that, in order to explore what was driving the birds' behavior, we equalized the amount of work required across the buckets. In this
                                   'Equal work' phase, the number of pecks to move any of the buckets to the end goal was the same, regardless of their position. This phase disrupted their responding, making them lapse into 
                                   a position preference."),
