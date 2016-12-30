@@ -1,17 +1,23 @@
 library(ggplot2)
-source('theme_shiny.R')
+source('theme_APA.R')
 farthest = read.table("data/farthest.txt", header = T)
-farthest$group = 'Farthest'
+farthest$group = 'Reverse'
 closest = read.table("data/closest.txt", header = T)
-closest$group = 'Closest'
-thedata = subset(rbind(farthest, closest), optimal_r != 9)
+closest$group = 'Standard'
+random = read.table("data/random.txt", header = T)
+random$group = 'Random'
+thedata = subset(rbind(farthest, closest, random), optimal_r != 9)
+
+
+
 intro_text = list(h4(p("About the task:")), p("In the Bucket Task, pigeons are shown two possible paths on a touchscreen, like ", a("this.", href = 'https://raw.githubusercontent.com/victor-navarro/bucketapp/master/bucket.webm', target="_blank")), 
               p("They choose one of the paths by pecking a colored square, and after it, they had to peck the image of a bucket. Each peck made the bucket move one step towards the end of the path. 
                        Once the bucket reached the end of the path, one last peck produced food. The birds received multiple trials a day, in which the position of the buckets changed."),
-              p("We manipulated, in a between-subjects design, the relationship between the position of the bucket and the amount of pecks required to move the bucket to the endzone. In the 'Closest' condition,
-                                  the bucket that is the closest to the endzone requires less pecks, and the birds can reduce the response-cost by choosing it (it takes less effort!). In the 'Farthest' condition such
-                                  relationship is inversed, such as it is now the farthest bucket the one that is optimal. Check a video of the Closest condition ", 
-                a("here", href = 'https://raw.githubusercontent.com/victor-navarro/bucketapp/master/closest.webm', target="_blank"), ", and one of the Farthest condition over here"), 
+              p("We manipulated, in a between-subjects design, the relationship between the position of the bucket and the amount of pecks required to move the bucket to the endzone. In the 'Standard' condition,
+                                  the bucket that is the closest to the endzone requires less pecks, and the birds can reduce the response-cost by choosing it (it takes less effort!). In the 'Reverse' condition such
+                                  relationship is inversed, such as it is now the farthest bucket the one that is optimal."), 
+              p("You can see a video of the Standard group", a("here.", href = 'https://raw.githubusercontent.com/victor-navarro/bucketapp/master/bucket.webm', target="_blank"), 
+                "Also, you can see a video of the Reverse group", a("here.", href = 'https://raw.githubusercontent.com/victor-navarro/bucketapp/master/bucket.webm', target="_blank")),
               p("We trained the birds on those tasks for 15 days. After that, in order to explore what was driving the birds' behavior, we equalized the amount of work required across the buckets. In this
                                   'Equal work' phase, the number of pecks to move any of the buckets to the end goal was the same, regardless of their position. This phase disrupted their responding, making them lapse into 
                                   a position preference."),
@@ -27,7 +33,7 @@ intro_text = list(h4(p("About the task:")), p("In the Bucket Task, pigeons are s
 common_layers = list(stat_summary(geom = 'line', fun.y = 'mean'), geom_vline(xintercept = 0, linetype = 'dotted', alpha = .4), 
                      geom_hline(yintercept = 0.5, linetype = 'dotted', alpha = .4), 
                      stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = .2, alpha = .7), 
-                     theme_shiny(), stat_summary(fun.y = 'mean', geom = 'point', size = 3, fill = 'white'), 
+                     theme_APA(), stat_summary(fun.y = 'mean', geom = 'point', size = 3, fill = 'white'), 
                      labs(x = 'Distance (left bucket - right bucket)', y = 'Proportion of left choices'),
                      coord_cartesian(ylim = c(-0.02, 1.02)),  
                      scale_y_continuous(breaks = seq(0.0, 1, .1), labels = seq(0.0, 1, .1)), 
@@ -59,10 +65,12 @@ shinyServer(function(input, output) {
     
     output$birds = renderUI({
         if (input$mode == "Individual"){
-            if(input$group == 'Closest'){
+            if(input$group == 'Standard'){
                 b_selection = c("24W", "54Y", "62B", "71R")
-            }else{
+            }else if (input$group == 'Reverse'){
                 b_selection = c("8R", "44W", "60Y", "83Y")
+            }else{
+                b_selection = c("11Y", "16W", "28Y", "36R")
             }
             radioButtons("bird", "Subject", choices = b_selection)
         }
@@ -118,6 +126,14 @@ shinyServer(function(input, output) {
         
         #plotting depending on what we want to see
         if(input$mode == 'Group comparison'){
+            if(input$comp == 'Std vs. Rev'){
+                holder = subset(holder, group == 'Standard' | group == 'Reverse')
+            }else if (input$comp == 'Std vs. Rand'){
+                holder = subset(holder, group == 'Standard' | group == 'Random')
+            }else{
+                holder = subset(holder, group == 'Reverse' | group == 'Random')
+            }
+            summary(holder)
             if(input$moment == 'All sessions'){
                 ggplot(holder, aes(x=distance, y = left, shape = group))  + common_layers + group_layers
             }else if(input$moment == 'Individual sessions'){

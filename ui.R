@@ -22,7 +22,8 @@ shinyUI(fluidPage(
         column(3,
                wellPanel(
                    h4('Secondary options'),
-                   conditionalPanel(condition = "input.mode == 'Group' | input.mode == 'Individual'", radioButtons("group", label = "Group", choices = c("Closest", "Farthest"))),
+                   conditionalPanel(condition = "input.mode == 'Group comparison'", radioButtons("comp", label = "Comparison", choices = c("Std vs. Rev", "Std vs. Rand", "Rev vs. Rand"))),
+                   conditionalPanel(condition = "input.mode == 'Group' | input.mode == 'Individual'", radioButtons("group", label = "Group", choices = c("Standard", "Reverse", "Random"))),
                    uiOutput('birds'),
                    uiOutput('block_s'),
                    uiOutput('rangecheck')
